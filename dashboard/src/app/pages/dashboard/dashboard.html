@@ -1,0 +1,119 @@
+<div class="page">
+  <div class="container">
+    <header class="hero">
+      <p class="eyebrow">Smart Energy Distributor</p>
+      <h1>Energy monitoring and control dashboard</h1>
+      <p class="subtitle">
+        Live mock overview for consumption, load activity, savings, and system status.
+      </p>
+    </header>
+
+    <section class="cards">
+      <div
+        class="card"
+        *ngFor="let card of mockData.dashboardCards; let i = index"
+        [ngClass]="{ highlight: i === 3 }">
+        <span class="label">{{ card.label }}</span>
+        <strong>{{ card.value }}</strong>
+        <small>{{ card.description }}</small>
+      </div>
+    </section>
+
+    <section class="overview-grid">
+      <div class="panel">
+        <div class="section-head">
+          <h2>System Overview</h2>
+          <p>Current mock status across the platform.</p>
+        </div>
+
+        <div class="overview-list">
+          <div class="overview-item">
+            <span>System Mode</span>
+            <b>{{ mockData.systemMode }}</b>
+          </div>
+
+          <div class="overview-item">
+            <span>Active Loads</span>
+            <b>{{ mockData.activeLoads }}</b>
+          </div>
+
+          <div class="overview-item">
+            <span>Total Current</span>
+            <b>{{ mockData.totalCurrent }}</b>
+          </div>
+
+          <div class="overview-item">
+            <span>Highest Priority Active</span>
+            <b>{{ mockData.highestPriorityActive }}</b>
+          </div>
+
+          <div class="overview-item">
+            <span>Last Update</span>
+            <b>{{ mockData.lastUpdate }}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <h2>Active Consumers</h2>
+          <p>Loads currently enabled in the system.</p>
+        </div>
+
+        <div class="active-loads" *ngIf="activeLoadList.length > 0; else emptyLoads">
+          <div class="load-row" *ngFor="let load of activeLoadList">
+            <div>
+              <h3>{{ load.name }}</h3>
+              <p>{{ load.mode }} mode · {{ load.priority }} priority</p>
+            </div>
+
+            <div class="load-values">
+              <span>{{ load.current }}</span>
+              <span class="badge on">{{ load.state }}</span>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #emptyLoads>
+          <div class="empty-state">
+            No active loads at the moment.
+          </div>
+        </ng-template>
+      </div>
+    </section>
+
+    <section class="shortcuts-grid">
+      <a class="shortcut-card" routerLink="/loads">
+        <div>
+          <p class="shortcut-label">Control</p>
+          <h3>Manage Loads</h3>
+          <span>Turn consumers ON/OFF and switch modes</span>
+        </div>
+      </a>
+
+      <a class="shortcut-card" routerLink="/priorities">
+        <div>
+          <p class="shortcut-label">Logic</p>
+          <h3>Edit Priorities</h3>
+          <span>Reorder protected and secondary loads</span>
+        </div>
+      </a>
+
+      <a class="shortcut-card" routerLink="/analytics">
+        <div>
+          <p class="shortcut-label">Insights</p>
+          <h3>View Analytics</h3>
+          <span>Inspect trends, savings, and technical charts</span>
+        </div>
+      </a>
+
+      <a class="shortcut-card" routerLink="/settings">
+        <div>
+          <p class="shortcut-label">Config</p>
+          <h3>Adjust Settings</h3>
+          <span>Change thresholds, automation, and modes</span>
+        </div>
+      </a>
+    </section>
+  </div>
+</div>

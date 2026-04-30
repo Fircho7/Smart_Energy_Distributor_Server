@@ -1,0 +1,114 @@
+<div class="page">
+  <div class="container">
+    <header class="hero">
+      <p class="eyebrow">Priorities</p>
+      <h1>Load priority and system response logic</h1>
+      <p class="subtitle">
+        Reorder consumers and inspect how the system reacts under different load conditions.
+      </p>
+    </header>
+
+    <section class="mode-grid">
+      <div class="mode-card active">
+        <span class="label">Current Mode</span>
+        <strong>{{ mockData.systemMode }}</strong>
+        <small>Balanced energy saving with protected high-priority loads</small>
+      </div>
+
+      <div class="mode-card">
+        <span class="label">Overload Threshold</span>
+        <strong>{{ mockData.warningThreshold }}</strong>
+        <small>Mock trigger for automatic load reduction</small>
+      </div>
+
+      <div class="mode-card">
+        <span class="label">Critical Threshold</span>
+        <strong>{{ mockData.criticalThreshold }}</strong>
+        <small>Mock trigger for emergency shutdown logic</small>
+      </div>
+    </section>
+
+    <section class="priority-layout">
+      <div class="priority-panel">
+        <div class="section-head">
+          <h2>Priority Order</h2>
+          <p>Loads are handled from highest to lowest importance.</p>
+        </div>
+
+        <div class="priority-list">
+          <div class="priority-item" *ngFor="let item of mockData.priorities; let i = index">
+            <div class="left">
+              <span class="rank">{{ i + 1 }}</span>
+              <div>
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+              </div>
+            </div>
+
+            <div class="right-side">
+              <span class="level" [ngClass]="item.level.toLowerCase()">
+                {{ item.level }}
+              </span>
+
+              <div class="actions">
+                <button class="action-btn" (click)="moveUp(i)">↑</button>
+                <button class="action-btn" (click)="moveDown(i)">↓</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rules-panel">
+        <div class="section-head">
+          <h2>System Rules</h2>
+          <p>Example behavior used by the smart distributor.</p>
+        </div>
+
+        <div class="rule-card" *ngFor="let rule of mockData.rules">
+          <h3>{{ rule.title }}</h3>
+          <p>{{ rule.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="response-panel">
+      <div class="section-head">
+        <h2>Response by Load Level</h2>
+        <p>Example of how the system reacts as total current increases.</p>
+      </div>
+
+      <div class="response-grid">
+        <div class="response-card">
+          <span class="stage normal">Normal</span>
+          <h3>Below {{ mockData.warningThreshold }}</h3>
+          <ul>
+            <li>All active loads continue normally</li>
+            <li>Motor keeps selected PWM</li>
+            <li>Lamp works in automatic mode</li>
+          </ul>
+        </div>
+
+        <div class="response-card">
+          <span class="stage warning">Warning</span>
+          <h3>Above {{ mockData.warningThreshold }}</h3>
+          <ul>
+            <li>Lower-priority loads are reduced first</li>
+            <li>Motor PWM may be decreased</li>
+            <li>Lamp remains protected</li>
+          </ul>
+        </div>
+
+        <div class="response-card">
+          <span class="stage critical">Critical</span>
+          <h3>Above {{ mockData.criticalThreshold }}</h3>
+          <ul>
+            <li>Low-priority consumers are disabled</li>
+            <li>Only critical loads remain active</li>
+            <li>System enters protective mode</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

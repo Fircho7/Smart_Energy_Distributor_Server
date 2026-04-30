@@ -1,0 +1,155 @@
+<div class="page">
+  <div class="container">
+    <header class="hero">
+      <p class="eyebrow">Settings</p>
+      <h1>System configuration and baseline parameters</h1>
+      <p class="subtitle">
+        Configure thresholds, automation, pricing model, and system mode using mock interactive values.
+      </p>
+    </header>
+
+    <section class="settings-grid">
+      <div class="panel">
+        <div class="section-head">
+          <h2>Current Thresholds</h2>
+          <p>Mock protection and reduction levels.</p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>Warning Threshold</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.warningThreshold"
+              (ngModelChange)="onSettingsChange()"
+            />
+          </div>
+
+          <div class="field">
+            <label>Critical Threshold</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.criticalThreshold"
+              (ngModelChange)="onSettingsChange()"
+            />
+          </div>
+
+          <div class="field">
+            <label>Lamp Priority Limit</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.lampPriorityLimit"
+              (ngModelChange)="onSettingsChange()"
+            />
+          </div>
+
+          <div class="field">
+            <label>Motor Reduction Step</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.motorReductionStep"
+              (ngModelChange)="onSettingsChange()"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <h2>Energy Cost Model</h2>
+          <p>Used to estimate cost and savings in analytics.</p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label>Cost per kWh</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.costPerKwh"
+              (ngModelChange)="onEnergyModelChange()"
+            />
+          </div>
+
+          <div class="field">
+            <label>Expected Monthly Usage</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.expectedMonthlyUsage"
+              (ngModelChange)="onEnergyModelChange()"
+            />
+          </div>
+
+          <div class="field">
+            <label>Expected Lamp Active Time</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.expectedLampActiveTime"
+              (ngModelChange)="onEnergyModelChange()"
+            />
+          </div>
+
+          <div class="field">
+            <label>Expected Motor Activity</label>
+            <input
+              type="text"
+              [(ngModel)]="mockData.expectedMotorActivity"
+              (ngModelChange)="onEnergyModelChange()"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <h2>Automation</h2>
+          <p>Interactive mock control for future real-time logic.</p>
+        </div>
+
+        <div class="toggle-list">
+          <div class="toggle-row" *ngFor="let setting of mockData.automationSettings; let i = index">
+            <div>
+              <h3>{{ setting.title }}</h3>
+              <p>{{ setting.description }}</p>
+            </div>
+
+            <button
+              class="toggle-btn"
+              [ngClass]="setting.enabled ? 'on' : 'off'"
+              (click)="toggleAutomation(i)">
+              {{ setting.enabled ? 'Enabled' : 'Disabled' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <h2>System Mode</h2>
+          <p>Select mock operational strategy.</p>
+        </div>
+
+        <div class="mode-options">
+          <button
+            *ngFor="let mode of modes"
+            class="mode-btn"
+            [class.active]="mockData.systemMode === mode"
+            (click)="setMode(mode)">
+            {{ mode }}
+          </button>
+        </div>
+
+        <div class="note-box">
+          <h3>Current Selection</h3>
+          <p>
+            Active mode: <b>{{ mockData.systemMode }}</b>.
+            This selection affects the status shown in the topbar and across the app.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="save-btn" (click)="saveSettings()">Save Mock Settings</button>
+    </div>
+  </div>
+</div>

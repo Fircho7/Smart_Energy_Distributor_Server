@@ -1,0 +1,113 @@
+<div class="page">
+  <div class="container">
+    <header class="hero">
+      <p class="eyebrow">Analytics</p>
+      <h1>Consumption insights and technical monitoring</h1>
+      <p class="subtitle">
+        Prototype analytics page for energy savings, system load behavior,
+        and future real-time monitoring.
+      </p>
+    </header>
+
+    <section class="top-grid">
+      <div class="big-card savings-card">
+        <span class="label">Energy Saved This Month</span>
+        <strong>{{ mockData.savedEnergy }}</strong>
+        <p>Compared to the estimated baseline consumption.</p>
+
+        <div class="savings-meta">
+          <div>
+            <span>Expected</span>
+            <b>{{ expectedUsage }}</b>
+          </div>
+          <div>
+            <span>Real</span>
+            <b>{{ realUsage }}</b>
+          </div>
+          <div>
+            <span>Efficiency</span>
+            <b>{{ efficiency }}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="small-stats">
+        <div class="stat-card">
+          <span class="label">Estimated Cost Saved</span>
+          <strong>{{ savedCost }}</strong>
+          <small>Based on current mock cost model</small>
+        </div>
+
+        <div class="stat-card">
+          <span class="label">Lamp Nominal Current</span>
+          <strong>{{ lampNominalCurrent }}</strong>
+          <small>Calculated from nominal lamp behavior</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="charts-grid">
+      <div class="chart-card">
+        <div class="section-head">
+          <div>
+            <h2>Real Consumption Trend</h2>
+            <p>Simulated daily usage trend</p>
+          </div>
+        </div>
+        <canvas #consumptionChart></canvas>
+      </div>
+
+      <div class="chart-card">
+        <div class="section-head">
+          <div>
+            <h2>Expected vs Real</h2>
+            <p>Baseline model compared with optimized behavior</p>
+          </div>
+        </div>
+        <canvas #compareChart></canvas>
+      </div>
+    </section>
+
+    <section class="technical-grid">
+      <div class="tech-card">
+        <div class="section-head">
+          <div>
+            <h2>Total Current</h2>
+            <p>Main line current over time</p>
+          </div>
+        </div>
+        <canvas #totalCurrentChart></canvas>
+      </div>
+
+      <div class="tech-card">
+        <div class="section-head">
+          <div>
+            <h2>Motor Current & RPM</h2>
+            <p>Electrical and encoder behavior</p>
+          </div>
+        </div>
+        <canvas #motorChart></canvas>
+      </div>
+
+      <div class="tech-card">
+        <div class="section-head">
+          <div>
+            <h2>Temperature Trend</h2>
+            <p>System thermal monitoring</p>
+          </div>
+        </div>
+        <canvas #temperatureChart></canvas>
+      </div>
+
+      <div class="tech-card">
+        <div class="section-head">
+          <div>
+            <h2>Lamp Current Trend</h2>
+            <p>Lamp current over time</p>
+          </div>
+        </div>
+        <canvas #lampChart></canvas>
+      </div>
+    </section>
+  </div>
+</div>

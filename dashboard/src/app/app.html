@@ -1,0 +1,71 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <p class="brand-label">Smart Energy</p>
+      <h2 class="brand-title">Distributor</h2>
+    </div>
+
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <span class="nav-icon">▣</span>
+        <span class="nav-text">Dashboard</span>
+      </a>
+
+      <a routerLink="/analytics" routerLinkActive="active">
+        <span class="nav-icon">◫</span>
+        <span class="nav-text">Analytics</span>
+      </a>
+
+      <a routerLink="/loads" routerLinkActive="active">
+        <span class="nav-icon">◉</span>
+        <span class="nav-text">Loads</span>
+      </a>
+
+      <a routerLink="/priorities" routerLinkActive="active">
+        <span class="nav-icon">≣</span>
+        <span class="nav-text">Priorities</span>
+      </a>
+
+      <a routerLink="/settings" routerLinkActive="active">
+        <span class="nav-icon">⚙</span>
+        <span class="nav-text">Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="status-chip">
+          <span class="status-dot"></span>
+          <span>System {{ mockData.systemMode }}</span>
+        </div>
+
+        <div class="status-chip">
+          <span>Total {{ mockData.totalCurrent }}</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="mini-stat">
+          <span class="mini-label">Saved</span>
+          <strong>{{ mockData.savingsThisMonth }}</strong>
+        </div>
+
+        <div class="mini-stat">
+          <span class="mini-label">Active Loads</span>
+          <strong>{{ mockData.activeLoads }}</strong>
+        </div>
+
+        <div class="mini-stat">
+          <span class="mini-label">Update</span>
+          <strong>{{ mockData.lastUpdate }}</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

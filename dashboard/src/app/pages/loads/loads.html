@@ -1,0 +1,126 @@
+<div class="page">
+  <div class="container">
+    <header class="hero">
+      <p class="eyebrow">Loads</p>
+      <h1>Consumers and system control</h1>
+      <p class="subtitle">
+        Control consumer state and output level using interactive mock values.
+      </p>
+    </header>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <span class="label">Active Loads</span>
+        <strong>{{ activeLoads }} / {{ loads.length }}</strong>
+        <small>Currently enabled consumers</small>
+      </div>
+
+      <div class="summary-card">
+        <span class="label">Total Mock Draw</span>
+        <strong>{{ totalMockDraw }}</strong>
+        <small>Combined active load current</small>
+      </div>
+
+      <div class="summary-card">
+        <span class="label">System Mode</span>
+        <strong>{{ mockData.systemMode }}</strong>
+        <small>Priority and energy-saving mode</small>
+      </div>
+
+      <div class="summary-card highlight">
+        <span class="label">Highest Priority Active</span>
+        <strong>{{ highestPriorityActive }}</strong>
+        <small>Currently protected load</small>
+      </div>
+    </section>
+
+    <section class="loads-grid">
+      <div class="load-card" *ngFor="let load of loads">
+        <div class="load-top">
+          <div>
+            <h2>{{ load.name }}</h2>
+            <p>{{ load.description }}</p>
+          </div>
+
+          <span class="state-badge" [ngClass]="load.state.toLowerCase()">
+            {{ load.state }}
+          </span>
+        </div>
+
+        <div class="load-meta">
+          <div class="meta-box">
+            <span>Current</span>
+            <b>{{ load.current }}</b>
+          </div>
+
+          <div class="meta-box">
+            <span>Mode</span>
+            <b>{{ load.mode }}</b>
+          </div>
+
+          <div class="meta-box">
+            <span>Priority</span>
+            <b>{{ load.priority }}</b>
+          </div>
+        </div>
+
+        <div class="control-panel" [class.disabled-panel]="isControlDisabled(load)">
+          <div class="control-header">
+            <span>{{ load.controlLabel }}</span>
+            <b>{{ displayControlValue(load) }}</b>
+          </div>
+
+          <input
+            class="slider"
+            type="range"
+            [min]="load.minControl"
+            [max]="getMaxAllowed(load)"
+            [(ngModel)]="load.controlValue"
+            (input)="onControlChange(load)"
+            [disabled]="isControlDisabled(load)"
+          />
+
+          <p class="disabled-message" *ngIf="isControlDisabled(load)">
+            {{ getDisabledReason(load) }}
+          </p>
+        </div>
+
+        <div class="load-footer">
+          <div class="progress-info">
+            <div class="progress-row">
+              <span>Usage level</span>
+              <span>{{ load.usage }}%</span>
+            </div>
+
+            <div class="progress">
+              <div class="progress-fill" [style.width.%]="load.usage"></div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button
+              class="btn on"
+              [class.selected]="load.state === 'ON' && load.mode === 'Manual'"
+              (click)="turnOn(load)">
+              ON
+            </button>
+
+            <button
+              class="btn off"
+              [class.selected]="load.state === 'OFF' && load.mode === 'Manual'"
+              (click)="turnOff(load)">
+              OFF
+            </button>
+
+            <button
+              class="btn ghost"
+              [class.selected]="load.mode === 'Auto'"
+              (click)="setAuto(load)">
+              Auto
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
